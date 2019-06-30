@@ -1,0 +1,4 @@
+#!/bin/bash
+
+MAP_WIDTH=5
+MAP_LENGTH=5
