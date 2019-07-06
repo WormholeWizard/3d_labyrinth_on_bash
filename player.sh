@@ -12,7 +12,7 @@ Y_POS_IN=0 # in block
 # | o o o o o |
 # | X o o o o |
 
-ANGLE=4 # north
+ANGLE=90 # north
 
 handle_input_by_player()
 {

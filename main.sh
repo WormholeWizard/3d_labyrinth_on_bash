@@ -2,7 +2,7 @@
 
 echo 'Starting engine'
 
-. cos_table.sh
+. tan_table.sh
 . terminal.sh
 . draw.sh
 . map.sh
