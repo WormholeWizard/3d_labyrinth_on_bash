@@ -40,36 +40,68 @@ get_wall_index()
 
 find_intersection()
 {
+    local camera_x=${1}
+    local camera_y=${2}
+    local angle=${3}
+
     local pos_x=${1}
     local pos_y=${2}
-    local angle=${3}
-    local blocK_x=$(( pos_x / 10 ))
-    local blocK_y=$(( pos_y / 10 ))
+    local have_found=0
 
     if [ ${angle} -lt 90 ]; then
-        local temp=$(( pox_x + 10 ))
-        local wall_x=$(( temp - (temp % 10) ))
+        while [ ${have_found} -ne 1 ]; do
+            blocK_x=$(( pos_x / 10 ))
+            blocK_y=$(( pos_y / 10 ))
 
-        local temp=$(( pox_y + 10 ))
-        local wall_y=$(( temp - (temp % 10) ))
+            local temp=$(( pox_x + 10 ))
+            local wall_x=$(( temp - (temp % 10) ))
 
-        echo $wall_x $wall_y
+            local temp=$(( pox_y + 10 ))
+            local wall_y=$(( temp - (temp % 10) ))
 
-        local intersect_y=$(( (wall_x - pox_x) * TAN_TABLE[angle] ))
+            local intersect_y=$(( pos_y + (wall_x - pox_x) * TAN_TABLE[angle] / TAN_MULTI ))
 
-        intersect_y=$(( intersect_y / TAN_MULTI ))
+            if [ ${intersect_y} -gt ${wall_y} ]; then
+                local wall_index=get_wall_index block_x block_y 'top'
+                local wall=${HORIZONTAL_WALLS[wall_index]}
 
-        echo ${intersect_y}
+                local y_shift=$(( wall_y - pos_y ))
+                local x_shift=$(( y_shift * TAN_MULTI / TAN_TABLE[angle] ))
 
-        if [ ${intersect_y} -gt ${wall_y} ]; then
-            local wall_index=get_wall_index block_x block_y 'top'
-            local wall=${HORIZONTAL_WALLS[wall_index]}
-            echo ${wall}
+                pos_x=$(( pos_x + x_shift ))
+                pos_y=${wall_y}
+
+                if [ ${wall} -eq 1 ]; then
+                    have_found=1
+                fi
+            elif [ ${intersect_y} -le ${wall_y} ]; then
+                local wall_index=get_wall_index block_x block_y 'right'
+                local wall=${VERTICAL_WALLS[wall_index]}
+
+                pos_x=${wall_x}
+                pos_y=${intersect_y}
+
+                if [ ${wall} -eq 1 ]; then
+                    have_found=1
+                elif [ ${intersect_y} -eq ${wall_y} ]; then
+                    wall_index=get_wall_index $(( block_x + 1 )) block_y 'top'
+                    wall=${HORIZONTAL_WALLS[wall_index]}
+                    if [ ${wall} -eq 1 ]; then
+                        have_found=1
+                    fi
+                fi
+            fi
+        done
+
+        # not sure if needed
+        if [ ${angle} -gt 45 ]; then
+            local distance=$(( (pos_y - camera_y) *TAN_MULTI / SIN_TABLE[angle] ))
+        else
+            local distance=$(( (pos_x - camera_x) * TAN_MULTI / COS_TABLE[angle] ))
         fi
+        echo ${distance}
     fi
 }
-
-find_intersection 0 0 89
 
 get_wall_distance()
 {
