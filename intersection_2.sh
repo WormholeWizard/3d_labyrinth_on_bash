@@ -1,12 +1,12 @@
 #!/bind/bash
 
-local angle=(( 180 - angle ))
+local angle=$(( 180 - angle ))
 
 while [ ${have_found} -ne 1 ]; do
     blocK_x=$(( pos_x / 10 ))
     blocK_y=$(( pos_y / 10 ))
 
-    local temp=$(( pox_x - 10 ))
+    local temp=$(( pos_x - 10 ))
     # division remainder can be negative in bash
     if [[ temp -lt 0 ]]; then
         local wall_x=0
@@ -14,10 +14,10 @@ while [ ${have_found} -ne 1 ]; do
         local wall_x=$(( temp - (temp % 10) ))
     fi
 
-    local temp=$(( pox_y + 10 ))
+    local temp=$(( pos_y + 10 ))
     local wall_y=$(( temp - (temp % 10) ))
 
-    local intersect_y=$(( pos_y + (pox_x - wall_x) * TAN_TABLE[angle] / TAN_MULTI ))
+    local intersect_y=$(( pos_y + (pos_x - wall_x) * TAN_TABLE[angle] / TAN_MULTI ))
 
     if [ ${intersect_y} -gt ${wall_y} ]; then
         get_wall_index block_x block_y 'top'
@@ -56,7 +56,7 @@ done
 
 # not sure if needed
 if [ ${angle} -gt 45 ]; then
-    local distance=$(( (pos_y - camera_y) *TAN_MULTI / SIN_TABLE[angle] ))
+    local distance=$(( (pos_y - camera_y) * TAN_MULTI / SIN_TABLE[angle] ))
 else
     local distance=$(( (camera_x - pos_x) * TAN_MULTI / COS_TABLE[angle] ))
 fi

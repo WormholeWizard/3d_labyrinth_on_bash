@@ -4,13 +4,13 @@ while [ ${have_found} -ne 1 ]; do
     blocK_x=$(( pos_x / 10 ))
     blocK_y=$(( pos_y / 10 ))
 
-    local temp=$(( pox_x + 10 ))
+    local temp=$(( pos_x + 10 ))
     local wall_x=$(( temp - (temp % 10) ))
 
-    local temp=$(( pox_y + 10 ))
+    local temp=$(( pos_y + 10 ))
     local wall_y=$(( temp - (temp % 10) ))
 
-    local intersect_y=$(( pos_y + (wall_x - pox_x) * TAN_TABLE[angle] / TAN_MULTI ))
+    local intersect_y=$(( pos_y + (wall_x - pos_x) * TAN_TABLE[angle] / TAN_MULTI ))
 
     if [ ${intersect_y} -gt ${wall_y} ]; then
         get_wall_index block_x block_y 'top'
@@ -49,7 +49,7 @@ done
 
 # not sure if needed
 if [ ${angle} -gt 45 ]; then
-    local distance=$(( (pos_y - camera_y) *TAN_MULTI / SIN_TABLE[angle] ))
+    local distance=$(( (pos_y - camera_y) * TAN_MULTI / SIN_TABLE[angle] ))
 else
     local distance=$(( (pos_x - camera_x) * TAN_MULTI / COS_TABLE[angle] ))
 fi
