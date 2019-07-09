@@ -2,11 +2,11 @@
 
 echo 'Starting engine'
 
-. tan_table.sh
+. precalculated_values.sh
 . terminal.sh
-. draw.sh
 . map.sh
 . player.sh
+. draw.sh
 
 echo "Terminal size ${OUT_WIDTH}/${OUT_HEIGHT}"
 

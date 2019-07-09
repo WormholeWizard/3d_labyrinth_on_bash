@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAN_MULTI=10000
+TRI_MULTI=10000
 declare -a TAN_TABLE
 declare -a SIN_TABLE
 declare -a COS_TABLE

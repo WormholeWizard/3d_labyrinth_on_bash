@@ -17,7 +17,7 @@ while [ ${have_found} -ne 1 ]; do
         local wall_y=$(( temp - (temp % 10) ))
     fi
 
-    local intersect_y=$(( pos_y - (wall_x - pos_x) * TAN_TABLE[angle] / TAN_MULTI ))
+    local intersect_y=$(( pos_y - (wall_x - pos_x) * TAN_TABLE[angle] / TRI_MULTI ))
 
     if [ ${intersect_y} -lt ${wall_y} ]; then
         get_wall_index block_x block_y 'bottom'
@@ -25,7 +25,7 @@ while [ ${have_found} -ne 1 ]; do
         local wall=${HORIZONTAL_WALLS[wall_index]}
 
         local y_shift=$(( pos_y - wall_y))
-        local x_shift=$(( y_shift * TAN_MULTI / TAN_TABLE[angle] ))
+        local x_shift=$(( y_shift * TRI_MULTI / TAN_TABLE[angle] ))
 
         pos_x=$(( pos_x + x_shift ))
         pos_y=${wall_y}
@@ -56,7 +56,7 @@ done
 
 # not sure if needed
 if [ ${angle} -gt 45 ]; then
-    local distance=$(( (camera_y - pos_y) * TAN_MULTI / SIN_TABLE[angle] ))
+    local distance=$(( (camera_y - pos_y) * TRI_MULTI / SIN_TABLE[angle] ))
 else
-    local distance=$(( (pos_x - camera_x) * TAN_MULTI / COS_TABLE[angle] ))
+    local distance=$(( (pos_x - camera_x) * TRI_MULTI / COS_TABLE[angle] ))
 fi
