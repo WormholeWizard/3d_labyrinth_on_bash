@@ -3,8 +3,8 @@
 local angle=$(( 360 - angle ))
 
 while [ ${have_found} -ne 1 ]; do
-    blocK_x=$(( pos_x / 10 ))
-    blocK_y=$(( pos_y / 10 ))
+    block_x=$(( pos_x / 10 ))
+    block_y=$(( pos_y / 10 ))
 
     local temp=$(( pos_x + 10 ))
     local wall_x=$(( temp - (temp % 10) ))

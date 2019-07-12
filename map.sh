@@ -2,7 +2,7 @@
 
 #size in blocks
 MAP_WIDTH=1
-MAP_LENGTH=1
+MAP_HEIGHT=3
 
 MAP_BLOCK_SIZE=10
 
@@ -11,12 +11,18 @@ declare -a VERTICAL_WALLS
 
 HORIZONTAL_WALLS=(
     [0]=1
-    [1]=1
+    [1]=0
+    [2]=0
+    [3]=1
 )
 
 VERTICAL_WALLS=(
     [0]=1
     [1]=1
+    [2]=1
+    [3]=1
+    [4]=1
+    [5]=1
 )
 
 get_wall_index()
