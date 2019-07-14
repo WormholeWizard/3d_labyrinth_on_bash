@@ -4,9 +4,9 @@ echo 'Starting engine'
 
 . precalculated_values.sh
 . terminal.sh
-. player.sh
 . map.sh
 . intersection.sh
+. player.sh
 . draw.sh
 
 update_terminal_size

@@ -43,3 +43,28 @@ get_wall_index()
         top) return $((x_coord * (MAP_HEIGHT + 1) + y_coord + 1));;
     esac
 }
+
+has_wall_at()
+{
+    local x_coord=${1}
+    local y_coord=${2}
+
+    local block_x=$(( pos_x / MAP_BLOCK_SIZE ))
+    local block_y=$(( pos_y / MAP_BLOCK_SIZE ))
+
+    local has_wall=1
+
+    if [[ $(( x_coord % 10)) -eq 0 ]]; then
+        get_wall_index block_x block_y 'left'
+        [[ has_wall || ${VERTICAL_WALLS[$?]} -eq 1 ]]
+        has_wall=$?
+    fi
+
+    if [[ $(( y_coord % 10)) -eq 0 ]]; then
+        get_wall_index block_x block_y 'bottom'
+        [[ has_wall || ${HORIZONTAL_WALLS[$?]} -eq 1 ]]
+        has_wall=$?
+    fi
+
+    return ${has_wall}
+}
