@@ -1,14 +1,14 @@
 #!/bind/bash
 
 while [ ${have_found} -ne 1 ]; do
-    block_x=$(( pos_x / 10 ))
-    block_y=$(( pos_y / 10 ))
+    block_x=$(( pos_x / MAP_BLOCK_SIZE ))
+    block_y=$(( pos_y / MAP_BLOCK_SIZE ))
 
-    local temp=$(( pos_x + 10 ))
-    local wall_x=$(( temp - (temp % 10) ))
+    local temp=$(( pos_x + MAP_BLOCK_SIZE ))
+    local wall_x=$(( temp - (temp % MAP_BLOCK_SIZE) ))
 
-    local temp=$(( pos_y + 10 ))
-    local wall_y=$(( temp - (temp % 10) ))
+    local temp=$(( pos_y + MAP_BLOCK_SIZE ))
+    local wall_y=$(( temp - (temp % MAP_BLOCK_SIZE) ))
 
     local intersect_y=$(( pos_y + (wall_x - pos_x) * TAN_TABLE[angle] / TRI_MULTI ))
 

@@ -3,23 +3,23 @@
 local angle=$(( angle - 180 ))
 
 while [ ${have_found} -ne 1 ]; do
-    block_x=$(( pos_x / 10 ))
-    block_y=$(( pos_y / 10 ))
+    block_x=$(( pos_x / MAP_BLOCK_SIZE ))
+    block_y=$(( pos_y / MAP_BLOCK_SIZE ))
 
-    local temp=$(( pos_x - 10 ))
+    local temp=$(( pos_x - MAP_BLOCK_SIZE ))
     # division remainder can be negative in bash
     if [[ temp -lt 0 ]]; then
         local wall_x=0
     else
-        local wall_x=$(( temp - (temp % 10) ))
+        local wall_x=$(( temp - (temp % MAP_BLOCK_SIZE) ))
     fi
 
-    local temp=$(( pos_y - 10 ))
+    local temp=$(( pos_y - MAP_BLOCK_SIZE ))
     # division remainder can be negative in bash
     if [[ temp -lt 0 ]]; then
         local wall_y=0
     else
-        local wall_y=$(( temp - (temp % 10) ))
+        local wall_y=$(( temp - (temp % MAP_BLOCK_SIZE) ))
     fi
 
     local intersect_y=$(( pos_y - (pos_x - wall_x) * TAN_TABLE[angle] / TRI_MULTI ))

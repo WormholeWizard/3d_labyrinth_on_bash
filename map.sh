@@ -1,29 +1,36 @@
 #!/bin/bash
 
-#size in blocks
-MAP_WIDTH=1
-MAP_HEIGHT=3
-
 MAP_BLOCK_SIZE=10
+
+# size in blocks
+declare MAP_WIDTH
+declare MAP_HEIGHT
 
 declare -a HORIZONTAL_WALLS
 declare -a VERTICAL_WALLS
 
-HORIZONTAL_WALLS=(
-    [0]=1
-    [1]=0
-    [2]=0
-    [3]=1
-)
+read_map()
+{
+    # stub
+    MAP_WIDTH=1
+    MAP_HEIGHT=3
 
-VERTICAL_WALLS=(
-    [0]=1
-    [1]=1
-    [2]=1
-    [3]=1
-    [4]=1
-    [5]=1
-)
+    HORIZONTAL_WALLS=(
+        [0]=1
+        [1]=0
+        [2]=0
+        [3]=1
+    )
+
+    VERTICAL_WALLS=(
+        [0]=1
+        [1]=1
+        [2]=1
+        [3]=1
+        [4]=1
+        [5]=1
+    )
+}
 
 get_wall_index()
 {
@@ -35,36 +42,4 @@ get_wall_index()
         bottom) return $((x_coord * (MAP_HEIGHT + 1) + y_coord));;
         top) return $((x_coord * (MAP_HEIGHT + 1) + y_coord + 1));;
     esac
-}
-
-find_intersection()
-{
-    local camera_x=${1}
-    local camera_y=${2}
-    local angle=${3}
-
-    local pos_x=${1}
-    local pos_y=${2}
-    local have_found=0
-
-    # hack for now
-    if [[ ${angle} -eq 90 ]]; then
-        angle=89
-    elif [[ ${angle} -eq 270 ]]; then
-        angle=269
-    fi
-
-    if [ ${angle} -lt 90 ]; then
-        . intersection_1.sh
-    elif [ ${angle} -lt 180 ]; then
-        . intersection_2.sh
-    elif [ ${angle} -lt 270 ]; then
-        . intersection_3.sh
-    elif [ ${angle} -lt 360 ]; then
-        . intersection_4.sh
-    else
-        echo 'INVALID ANGLE' ${angle}
-    fi
-
-    return ${distance}
 }
