@@ -49,21 +49,25 @@ has_wall_at()
     local x_coord=${1}
     local y_coord=${2}
 
-    local block_x=$(( pos_x / MAP_BLOCK_SIZE ))
-    local block_y=$(( pos_y / MAP_BLOCK_SIZE ))
+    local block_x=$(( x_coord / MAP_BLOCK_SIZE ))
+    local block_y=$(( y_coord / MAP_BLOCK_SIZE ))
 
     local has_wall=1
 
     if [[ $(( x_coord % 10)) -eq 0 ]]; then
         get_wall_index block_x block_y 'left'
-        [[ has_wall || ${VERTICAL_WALLS[$?]} -eq 1 ]]
-        has_wall=$?
+        if [[ ${VERTICAL_WALLS[$?]} -eq 1 ]]
+        then
+            has_wall=0
+        fi
     fi
 
     if [[ $(( y_coord % 10)) -eq 0 ]]; then
         get_wall_index block_x block_y 'bottom'
-        [[ has_wall || ${HORIZONTAL_WALLS[$?]} -eq 1 ]]
-        has_wall=$?
+        if [[ ${HORIZONTAL_WALLS[$?]} -eq 1 ]]
+        then
+            has_wall=0
+        fi
     fi
 
     return ${has_wall}

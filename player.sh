@@ -11,8 +11,8 @@ handle_input_by_player()
     local INPUT=${1}
     local temp_angle=${PLAYER_ANGLE}
     case ${INPUT} in
-        d) PLAYER_ANGLE=$(( (PLAYER_ANGLE + ANGLE_STEP) % 360 ));;
-        a) PLAYER_ANGLE=$(( (PLAYER_ANGLE + 360 - ANGLE_STEP) % 360 ));;
+        d) PLAYER_ANGLE=$(( (PLAYER_ANGLE + 360 - ANGLE_STEP) % 360 ));;
+        a) PLAYER_ANGLE=$(( (PLAYER_ANGLE + ANGLE_STEP) % 360 ));;
         s) temp_angle=$(( (PLAYER_ANGLE + 180) % 360 ));&
         w)
             local x_shift=0

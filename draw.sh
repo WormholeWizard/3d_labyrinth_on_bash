@@ -17,12 +17,12 @@ draw_view()
     if [[ ${terminal_odd} -eq 0 ]]; then
         view_half=$(( view_half + (step / 2) ))
     fi
-    local angle_first=$(( (PLAYER_ANGLE + 360 - view_half) % 360))
+    local angle_first=$(( (PLAYER_ANGLE + view_half) % 360))
     # echo ${step} ${terminal_half} ${terminal_odd} ${view_half} ${angle_first} ${PLAYER_ANGLE}
     local wall_height_max=${TERMINAL_HEIGHT}
 
     local current_step=0;
-    for (( angle=${angle_first}; ${current_step} != ${TERMINAL_WIDTH}; angle=$(( (angle + step) % 360 )) )); do
+    for (( angle=${angle_first}; ${current_step} != ${TERMINAL_WIDTH}; angle=$(( (angle + 360 - step) % 360 )) )); do
         find_intersection ${PLAYER_X} ${PLAYER_Y} ${angle}
         local distance=$?
         # echo ${angle} ${distance}
