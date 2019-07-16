@@ -29,4 +29,6 @@ do
 
     update_terminal_size
     draw_view
+
+    echo x=${PLAYER_X} y=${PLAYER_Y} angle=${PLAYER_ANGLE}
 done

@@ -21,6 +21,10 @@ VERTICAL_WALLS=(
     [5]=1
 )
 
+test_commans=(
+    "has_wall_at 0 0"
+)
+
 has_wall_at 0 0
 if [[ $? -ne 0 ]];
 then
